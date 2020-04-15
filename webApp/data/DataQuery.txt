@@ -1,0 +1,3 @@
+Where to get the data, realtime as JSON:
+
+GET https://opendata.ecdc.europa.eu/covid19/casedistribution/json/ 

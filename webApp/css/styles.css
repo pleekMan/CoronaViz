@@ -1,0 +1,386 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+@charset "utf-8";
+body {
+	background-color: black;
+	font-family: 'Raleway', Verdana, Geneva, Arial, sans-serif;
+}
+
+.col {
+	/* background-color: aqua; */
+}
+
+.row {
+	width: 100%; 
+	/* text-align: right; */
+}
+
+a{
+	color:  rgb(137, 196, 206);
+}
+
+a>code{
+	color: #e83e8c;
+}
+.container-fluid {
+	padding: 0px;
+	margin: 0px;
+}
+
+/* NAV HEADER */
+
+.navbar {
+	padding: 0px;
+	background-color: black;
+	line-height: 50px;
+	padding-left: 20px;
+}
+
+.navbar-brand {
+	padding: 0px;
+	color: white;
+}
+
+#headerTitle {
+	color: white;
+	font-family: 'Raleway', Verdana, Geneva, Arial, sans-serif;
+	text-align: center;
+}
+
+#topMenu{
+	background-color: #ab0010;
+	color: aqua;
+}
+
+.textContainer p{
+	font-size: 11px;
+	color: #afafaf;
+	padding-left: 30px;
+	padding-top: 5px;
+	
+}
+
+#description p{
+	font-size: 12px;
+	line-height: 20px;
+}
+
+.dropdown{
+}
+
+#examplesContainer{
+	/* text-align: right; */
+	right: 29px;
+	top: 38px;
+}
+
+.dropdown-toggle{
+	background-color: #2b2b2b; 
+	border-radius: 0;
+	outline: none;
+}
+
+#examplesButton{
+	font-size: 13px;
+	border-bottom: none;
+}
+
+.dropdown-item{
+	background-color: #2b2b2b;
+	border-radius: 0;
+	font-size: 13px;
+	color: white;
+}
+
+#examplesItem{
+	color: white;
+}
+#examplesItem:hover{
+	color:  #2b2b2b;
+	cursor: pointer;
+}
+
+.dropdown-menu{
+ background-color:#535b62;
+ border-radius: 0;
+
+}
+
+#credits{
+	position:absolute;
+	top:3px;
+	left:100%;
+	transform:translateX(-390px);
+	width:390px;
+	text-align: right;
+}
+
+#footer{
+	/* position:fixed; */
+	/* bottom:-20px; */
+	/* left:100%; */
+	/* transform:translateX(-390px); */
+	/* width:390px; */
+	text-align: right;
+	color: #6c757d;
+}
+
+
+#codeViewport {
+	background-color: black;
+}
+
+#codeColumn {
+	flex: 1;
+	background-color: black;
+	width: 1px;
+	/* THIS MAKES THE EDITOR NOT TAKE UP ALL THE ROW, AND THE ROW AND BE ADAPTABLE*/
+	/* border: none;
+	-webkit-transition : border 500ms ease-out; 
+	-moz-transition : border 500ms ease-out;
+	-o-transition : border 500ms ease-out; */
+}
+
+/*
+#codeColumn:hover{
+	flex: 1;
+	background-color: cadetblue;
+	width: 1px; THIS MAKES THE EDITOR NOT TAKE UP ALL THE ROW, AND THE ROW AND BE ADAPTABLE
+
+	border: 5px solid red;
+}
+*/
+
+#viewportColumn {
+	flex: 0 0 500px;
+	margin: 0px;
+	padding: 0px;
+	background-color: black;
+}
+
+#viewport {
+	width: 500px;
+	height: 500px;
+	padding: 0px;
+}
+
+#middle {
+	background-color: rgb(50, 50, 75);
+	height: 70px;
+}
+
+#controls.col {
+	flex: 0 0 500px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#textContainer {
+	margin: 0px;
+	padding: 0px;
+}
+
+/* SLIDER */
+
+#sliderContainer {
+	width: 200px;
+	padding: 0px;
+	margin: 0px;
+}
+
+#sliderContainer2 {
+	width: 150px;
+	padding: 0px;
+	margin: 0px;
+	padding-left: 20px;
+}
+
+.slider {
+	-webkit-appearance: none;
+	width: 150px;
+	height: 15px;
+	background: rgb(90, 90, 90);
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 15px;
+	height: 15px;
+	background: rgb(90, 90, 90);
+	cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+	width: 15px;
+	height: 15px;
+	background: rgb(90, 90, 90);
+	cursor: pointer;
+}
+
+label {
+	padding: 0px;
+	margin: 0px;
+	color: white;
+	font-size: 12px;
+}
+
+#controlA {
+	background-color: rgb(240, 100, 80);
+}
+
+#controlB {
+	background-color: rgb(140, 200, 90);
+}
+
+#controlC {
+	background-color: rgb(0, 150, 255);
+}
+
+#controlDensity {
+	width: 100px;
+	background-color: rgb(100, 100, 100);
+	border: solid 1px rgb(160, 160, 160);
+	font-size: 12px;
+	height: 20px;
+	width: 50px;
+	border-radius: 0px;
+	color: white;
+	margin-top: 7px;
+	outline: none;
+	/* -webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important; */
+}
+
+#controlDensityLabel{
+	color: #c1d0de!important;
+}
+
+.btn-info {
+	color: white;
+	border: solid 1px rgb(160, 160, 160);
+	font-size: 10px;
+	height: 22px;
+	/* width: 50px; */
+	border-radius: 0px;
+	background-color: rgb(165, 130, 120);
+}
+
+.btn-info:hover {
+	background-color: rgb(110, 103, 101);
+	border: solid 1px rgb(82, 80, 80);
+	/* color: #FFFFFF; */
+	/* border-style: none; */
+}
+
+.btn-info:not(:disabled):not(.disabled).active, .btn-info:not(:disabled):not(.disabled):active, .show>.btn-info.dropdown-toggle {
+	background-color: rgb(184, 184, 184);
+	border: solid 1px rgb(82, 80, 80);
+	/* color: #FFFFFF; */
+	/* border-style: none; */
+}
+
+#controlResetCamera {
+	/* width: 110px; */
+	outline: none;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+	margin-bottom: 5px;
+	margin-top: 7px;
+}
+
+.sliderlLabel {
+	color: white;
+}
+
+.custom-control-input {
+	/* bootstrapOverride */
+	position: relative;
+	/* line-height: 25px; */
+	/* margin-top: 3px; */
+	border: solid 1px rgb(82, 80, 80);
+	background-color: rgb(82, 80, 80);
+
+}
+
+#checkBoxContainer{
+	margin-left: 6px;
+}
+
+.custom-control-label {
+	/* bootstrapOverride */
+	position: relative;
+	line-height: 25px;
+	/* margin-top: 3px; */
+}
+
+
+#compileButtonContainer {
+	padding: 0;
+	margin: 2px;
+	margin-left: 30px;
+}
+
+#compileButton {
+	font-size: 12px;
+	background-color: #ebfb45;
+	color: black;
+	height: 30px;
+	font-weight: bolder;
+	outline: 0;
+}
+
+#compileButton:hover {
+	background-color: #cddd21;
+}
+
+#compileButton:active {
+	background-color: #ebf393;
+}
+
+#compileButtonLabel {
+	color: #6c757d;
+}
+
+.alert {
+	/* bootstrapOverride */
+	border-radius: 0px;
+	border: 0;
+	padding-left: 30px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin: 0px;
+	font-size: 12px;
+}
+
+.alert-danger {
+	/* bootstrapOverride */
+	background-color: rgb(100,0,25);
+	color: white;
+}
+
+#errorDiv{
+	letter-spacing: 2px;
+	transition: all 0.5s;
+	line-height: 20px;
+	font-family: Tahoma, sans-serif, monospace
+}
+
+/* CODE MIRROR  */
+
+.CodeMirror {
+	/* border: 1px solid #0e0; */
+	/* height: auto; */
+	width: auto;
+	height: 500px;
+	font-size: 0.75rem;
+}

@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="js/libs/three.js"></script>
+    <script src="js/libs/OrbitControls.js"></script>
+
+    <!-- CODEMIRROR -->
+    <script src="js/libs/codemirror-5.43.0/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="js/libs/codemirror-5.43.0/lib/codemirror.css">
+    <link rel="stylesheet" href="js/libs/codemirror-5.43.0/theme/darcula.css">
+    <script src="js/libs/codemirror-5.43.0/mode/glsl/glsl.js"></script>
+
+
+    <!-- Bootstrap  -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <!-- CORONAVIZ -->
+    <script src="data/coronaDataTest.js"></script>
+    <script src="js/shaderPool.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+
+    <title>CoronaViz</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand" id="headerTitle" href="#">
+            <img src="images/voxelLove_50px.png" width="50" height="50" class="d-inline-block align-top"
+                alt="Voxel Love">
+            Vertex Love
+        </a>
+    </nav>
+
+
+    <div class="container-fluid" id="middle">
+        <div class="row">
+            <div class="col textContainer" id="description">
+                <p>A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check out
+                    the <code>Examples</code> menu.</br>
+                    Shader inputs: each vertex’s <code>position.xyz</code> and <code>color.rgb</code></br>
+                    The <code>Red, Green and Blue sliders</code> over to the right are mapped to
+                    <code>controls.rgb</code>, play with them at will.
+                </p>
+            </div>
+
+            <div class="column-flex dropdown" id="examplesContainer">
+                <button class="btn btn-secondary dropdown-toggle" id="examplesButton" type="button"
+                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Examples
+                </button>
+                <div class="dropdown-menu" id="examplesItemsContainer" aria-labelledby="dropdownMenuButton">
+                    <!-- <a class="dropdown-item" id="examplesItem" onclick="loadShader(this.innerText)">shader1</a> -->
+                </div>
+            </div>
+
+
+            <div class="col" id="controls">
+
+                <div class="row" id="controlsContainer">
+                    <div class="flex-column" id="sliderContainer">
+                        <input type="range" min="1" max="100" value="50" class="slider" id="controlA"
+                            oninput="updateShaderControls(0,this.value, false)">
+                        <label id="controlALabel">0.01</label>
+                        <input type="range" min="1" max="100" value="50" class="slider" id="controlB"
+                            oninput="updateShaderControls(1,this.value, false)">
+                        <label id="controlBLabel">-0.34</label>
+                        <input type="range" min="1" max="100" value="50" class="slider" id="controlC"
+                            oninput="updateShaderControls(2,this.value, false)">
+                        <label id="controlCLabel">1.00</label>
+                    </div>
+                    <div class="flex-column" id="sliderContainer2">
+                        <input class="form-control-sm" id="controlDensity" placeholder="100"
+                            onchange="updateVertexDensity(this.value)">
+                        <small class="form-text text-muted" id="controlDensityLabel" style="color:orangered;">Vertex
+                            Density<sup>3</sup></small>
+                    </div>
+                    <div class="flex-column" id="sliderContainer2">
+                        <button type="button" class="btn btn-info btn-sm" id="controlResetCamera"
+                            onclick="resetCameraPosition()">Reset Camera</button>
+                        <div id="checkBoxContainer">
+                            <input type="checkbox" class="custom-control-input" id="axisCheckBox" checked
+                                onclick="toggleAxisGizmos(this)">
+                            <label class="custom-control-label" for="axisCheckBox">Show Axis</label>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- EDITOR + VIEWPORT -->
+
+    <div class="container-fluid" id="codeViewport">
+        <div class="row">
+            <div class="col" id="codeColumn">
+                <textarea id="codeText" rows="40" cols="80"></textarea>
+            </div>
+            <div class="col-6" id="viewportColumn">
+                <div id="viewport"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div id="compileButtonContainer">
+            <button type="button" class="btn btn-info btn-sm" alt="Ctrl/Cmd + R" id="compileButton"
+                onclick="sendCode()">Compile</button>
+            <label id="compileButtonLabel" for="compileButton"> <small> - Keyboard shortcut: </small>Ctrl / Cmd + R
+                <small> on code editor</small></label>
+        </div>
+        <div class="alert alert-danger" id="errorDiv" role="alert">
+            Error Messages
+        </div>
+        <div class="col textContainer" id="credits">
+            <p><a href="http://www.pleek.net" target="_blank"> <code>www.pleek.net</code></a> &nbsp;&nbsp;&nbsp; Tools
+                used: <a href="https://threejs.org/" target="_blank">THREE.js</a>, <a href="https://codemirror.net/"
+                    target="_blank">CodeMirror</a>, <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>
+                </br><a href="https://github.com/pleekMan/voxelLove_webApp" target="_blank">GitHub repo</a> || Made at
+                <a href="http://recurse.com" target="_blank">The Recurse Center</a>
+            </p>
+        </div>
+
+        <!-- <div class="col textContainer" id="footer">
+            <p>On Windows OS, you might be faced with a sad, sad empty black display.</br>
+            This is a webGL/ANGLE compatibility issue. Working on it...
+            </p>
+        </div> -->
+    </div>
+
+    <!-- CODE MIRROR SCRIPT -->
+    <script>
+
+        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("codeText"), {
+            //value: "Starting Text\nLine Two\nLine3",
+            mode: "glsl",
+            theme: "darcula",
+            lineNumbers: true
+        });
+        //myCodeMirror.setSize(900, 500);
+
+        myCodeMirror.setOption("extraKeys", {
+            "Cmd-R": function (cm) {
+                sendCode();
+                // var spaces = Array(cm.getOption("indentUnit") + 1).join("--");
+                // cm.replaceSelection(spaces);
+            },
+            "Ctrl-R": function (cm) {
+                sendCode();
+            }
+        });
+
+
+            //myCodeMirror.setValue("Start-up Text"); // --> onWinLoad function (bototm)
+            // myCodeMirror.refresh();
+    </script>
+
+
+    <!-- SHADER - VERTEX -->
+    <script type="x-shader/x-vertex" id="vertexShader">
+const float PI = 3.14159265358;
+const float TWO_PI = 6.28318530718;
+const float HALF_PI = 1.57079632679;
+
+uniform vec3 controls;
+uniform float time; // IN SECONDS
+varying vec4 vertexColor;
+
+void main() {
+
+    float wavyX = position.x * sin(position.y * TWO_PI + (time * controls.x ) ); // DRAG THE RED SLIDER
+    float offsetY = position.y + controls.y; // DRAG THE GREEN SLIDER
+    vec4 finalPos = vec4(wavyX, offsetY, position.z, 1.0);
+
+    gl_Position = projectionMatrix * modelViewMatrix * finalPos;
+    vertexColor = vec4(color,1.0);
+
+}
+    </script>
+
+    <!-- SHADER - FRAGMENT  -->
+    <script type="x-shader/x-fragment" id="fragmentShader">
+varying vec4 vertexColor;
+void main() {
+    gl_FragColor = vertexColor;
+}
+    </script>
+
+
+    <!-- MAIN THREE.JS CODE   -->
+
+    <script>
+        var scene, camera, camOrbit, light, axisGizmo;
+        var renderer;
+        var glContext;
+        // shaderPool exist automatically cuz of script import at the top
+
+        var clock = new THREE.Clock(true);
+
+        var voxelCube; // type: Points. [A Object3D class for displaying meshes as points (with gl_Points)]
+        var vertexDensity = 150.0; // INITIAL
+        var shaderMaterial;
+        var shaderPool;
+
+        var isShaderCorrected = false;
+        var shaderInputCode;
+        var previousShaderCode;
+
+        var shaderUniforms;
+        var frameCount = 0;
+        var shaderControls = new THREE.Vector3();
+        var controlElementA = document.getElementById("controlA");
+        var controlElementB = document.getElementById("controlB");
+        var controlElementC = document.getElementById("controlC");
+
+        //-------------- CORONAVIZ vars
+
+        var coronaCasesMorts = [];
+        var selectedCountry = 0;
+        var maxCases = 0;
+        var maxMorts = 0;
+
+        //$.getJSON("http://www.pleek.net/coronaviz/data/allowJsonAccess.php?f=coronaDataTest", function (data) {
+        // $.getJSON("https://opendata.ecdc.europa.eu/covid19/casedistribution/json/", function (data) {
+        //     var coronaData = data;
+        //     console.log(coronaData);
+        // });
+        console.log("CoronaData:");
+        console.log(coronaData);
+
+        setup();
+        animate();
+
+        function setup() {
+
+            // DOM STUFF & EVENT LISTENERS
+            document.addEventListener('mousedown', onMouseDown, false);
+            document.addEventListener("keypress", onKeyPressed, false);
+            window.addEventListener("load", onWinLoad, false);
+            buildExamplesMenu();
+
+
+            //window.addEventListener("error", onWinError, false);
+            var viewport = document.getElementById("viewport");
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(viewport.clientWidth, viewport.clientHeight);
+            viewport.appendChild(renderer.domElement);
+
+            // SETUP - BEGIN
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, viewport.clientWidth / viewport.clientHeight, 0.1, 1000);
+            light = new THREE.AmbientLight(0x404040); // soft white light
+            glContext = renderer.getContext(); // FOR LATTER SHADER ERROR HANDLING
+
+            scene.add(light);
+
+
+            // CAM ORBITER
+            camOrbit = new THREE.OrbitControls(camera, renderer.domElement);
+            camera.position.set(2, 2, 2);
+            camOrbit.enablePan = false; // WORK-AROUND FOR NOT PANNING THE CAMERA WHEN MOVING AROUND THE EDITOR WITH ARROW KEYS
+            camOrbit.update(); // CALL AFTER MANUALLY SETTING THE CAMERA
+
+
+            // SETUP - END
+            axisGizmo = new THREE.AxesHelper(1);
+            scene.add(axisGizmo);
+
+            // CORONAVIZ
+            setupLocalCoronaDB();
+
+            setupVoxelCube();
+
+
+            // GUI SETUP ---------------
+
+            //updateShaderControls(0, 0, true);
+            //updateShaderControls(1, 0, true);
+            //updateShaderControls(2, 0, true);
+
+            document.getElementById("controlDensity").value = vertexDensity;
+
+        }
+
+
+
+        function animate() {
+
+            shaderUniforms.time.value = clock.getElapsedTime();
+
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+
+            if (!isShaderCorrected) checkShaderError();
+
+        }
+
+
+
+        function setupLocalCoronaDB() {
+
+            let countryData = {
+                name: coronaData.records[0].countriesAndTerritories,
+                cases: 0,
+                morts: 0,
+                population: parseInt(coronaData.records[0].popData2018)
+            }
+            coronaData.records.forEach(element => {
+                if (element.countriesAndTerritories != countryData.name) {
+                    coronaCasesMorts.push(Object.assign({}, countryData)); // MAKE A COPY
+                    countryData.cases = 0;
+                    countryData.morts = 0;
+                    countryData.name = element.countriesAndTerritories;
+                    countryData.population = parseInt(element.popData2018);
+                }
+                countryData.cases += parseInt(element.cases);
+                countryData.morts += parseInt(element.deaths);
+
+            });
+            // FOR LAST COUNTRY
+            coronaCasesMorts.push(Object.assign({}, countryData)); // MAKE A COPY
+
+            // FIND MAX
+            coronaCasesMorts.forEach(element => {
+                maxCases = Math.max(maxCases, element.cases);
+                maxMorts = Math.max(maxMorts, element.morts);
+            });
+
+            console.log("--|| LOCAL CORONA DB:");
+
+            console.log(coronaCasesMorts);
+            console.log(maxCases);
+            console.log(maxMorts);
+        }
+
+        function switchToCountry(country){
+            selectedCountry = country;
+            shaderControls.setComponent(0, (coronaCasesMorts[selectedCountry].cases / coronaCasesMorts[selectedCountry].population)*1000);
+            shaderControls.setComponent(1,0.5);
+            shaderControls.setComponent(2,0.5);
+        }
+
+
+
+
+        // MY FUNCTIONS
+
+        function setupVoxelCube() {
+
+            voxelCube = new THREE.Points();
+
+            setupVoxelVertices(vertexDensity);
+
+            shaderUniforms = {
+                "time": { value: frameCount },
+                "controls": { value: shaderControls }
+            }
+
+            //var startShaderCode = shaderPool[0].code.join("\n");
+
+
+            shaderMaterial = new THREE.ShaderMaterial({
+                uniforms: shaderUniforms,
+                vertexShader: "",
+                fragmentShader: document.getElementById('fragmentShader').textContent,
+                //blending: THREE.AdditiveBlending,
+                depthTest: false,
+                transparent: true,
+                vertexColors: true
+            });
+
+
+            // shaderInputCode = startShaderCode;
+            // previousShaderCode = shaderInputCode;
+            //shaderInputCode = document.getElementById('vertexShader').textContent;
+            //previousShaderCode = shaderInputCode;
+
+
+            voxelCube.material = shaderMaterial;
+            //voxelCube = new THREE.Points(voxelCube, shaderMaterial);
+            scene.add(voxelCube);
+
+            var shaderObject = loadShader("Pulsing Bird-Cage");
+
+            shaderInputCode = shaderObject.code.join("\n");
+            previousShaderCode = shaderInputCode;
+        }
+
+        function setupVoxelVertices(inVertexDensity) {
+
+            vertexDensity = inVertexDensity;
+
+            var positions = [];
+            var colors = [];
+            var sizes = [];
+
+            var geometry = new THREE.BufferGeometry();
+            var color = new THREE.Color();
+
+
+            var separation = 1.0 / vertexDensity;
+
+            for (var z = 0; z < vertexDensity; z++) {
+                for (var y = 0; y < vertexDensity; y++) {
+                    for (var x = 0; x < vertexDensity; x++) {
+
+                        //var arrayPos = x + (y*RES_X) + (z*RES_X*RES_Y);
+                        positions.push(x * separation, y * separation, z * separation);
+
+                        color.setRGB(x / vertexDensity, y / vertexDensity, z / vertexDensity);
+                        colors.push(color.r, color.g, color.b);
+
+                        sizes.push(1); // 
+
+                    }
+                }
+            }
+
+
+            geometry.addAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            geometry.addAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+            geometry.addAttribute('vertexSize', new THREE.Float32BufferAttribute(sizes, 1));//.setDynamic( true ) );
+
+            // NOT CLEARING ANYTHING.. JUST RELYING ON JS GARBAGE COLLECTOR HERE...  :S
+            voxelCube.geometry = geometry;
+        }
+
+        function sendCode() {
+            //var codeText = document.getElementById("codeText").value;
+            var codeString = myCodeMirror.getValue();
+            //console.log(codeString);
+
+            shaderInputCode = codeString;
+            updateShader(shaderInputCode);
+        }
+
+        function updateShader(codeString) {
+            isShaderCorrected = false;
+            shaderMaterial.vertexShader = codeString;
+            voxelCube.material.needsUpdate = true;
+        }
+
+        function checkShaderError() {
+            var infoString = glContext.getShaderInfoLog(shaderMaterial.program.vertexShader);
+            var sliced = infoString.slice(0, 5);
+
+            if (sliced === "ERROR") {
+                updateShader(previousShaderCode);
+                isShaderCorrected = true;
+                updateErrorMessage(false, infoString);
+                return false;
+            } else {
+                previousShaderCode = shaderInputCode;
+                isShaderCorrected = true;
+                updateErrorMessage(true, "");
+                return true;
+            }
+        }
+
+        function updateErrorMessage(status, message) {
+
+            var errorDiv = document.getElementById("errorDiv");
+            //errorDiv.style.transition = "all 0.5s";
+
+            if (status) {
+                errorDiv.innerText = " :) ";
+                errorDiv.style.backgroundColor = "black";
+                errorDiv.style.color = "black";
+            } else {
+                errorDiv.innerText = reFormatErrorMessage(message);
+                errorDiv.style.backgroundColor = "rgb(100,0,25)";
+                errorDiv.style.color = "white";
+            }
+
+        }
+
+        function reFormatErrorMessage(message) {
+            //ERROR: 0: 52: '=' : cannot convert from 'const mediump float' to 'highp 4-component vector of float'
+            //ERROR: 0: 53: 'finalPos' : undeclared identifier
+            var lines = message.split("\n");
+            var finalMessage = "";
+
+            const editorlineNumberingOffset = 42;
+
+            for (var i = 0; i < lines.length - 1; i++) {
+                var elements = lines[i].split(":");
+
+                var lineNumber = parseInt(elements[2]) - editorlineNumberingOffset;
+                var finalLine = "At Line: " + lineNumber + "\u00A0".repeat(5) + elements[3] + " | " + elements[4] + "\n";
+                finalMessage += finalLine;
+            }
+
+            return finalMessage;
+
+        }
+
+        // CONTROLS CALLBACKS --------------
+        function loadShader(shaderName) {
+            console.log("Loading Shader: " + shaderName);
+
+            var shaderObject = fetchShader(shaderName);
+
+            if (shaderObject != null) {
+                // SET CODE IN EDITOR
+                var shaderCode = shaderObject.code.join("\n");
+                myCodeMirror.setValue(shaderCode);
+
+                // UPDATE GLOBAL shaderControl
+                updateShaderControls(0, shaderObject.controlsInitial[0], true);
+                updateShaderControls(1, shaderObject.controlsInitial[1], true);
+                updateShaderControls(2, shaderObject.controlsInitial[2], true);
+
+                // UPDATE GUI
+                updateControlSliders(shaderControls);
+                updateControlsLabel(shaderControls);
+
+                // SEND TO ENGINE
+                sendCode(shaderCode);
+
+                return shaderObject;
+
+            } else {
+                console.error("-| Voxel Love :: No Saved shader found with name " + shaderName);
+            }
+
+        }
+
+        function fetchShader(sName) {
+            var shaderObject = shaderPool.find(function (element) {
+                return element.name === sName;
+            });
+            return shaderObject;
+
+        }
+
+
+        function updateShaderControls(channel, value, normalized) {
+            value = normalized ? value : (value - 50) / 50;
+
+            //shaderControls.setComponent(channel, value);
+
+            updateControlsLabel(shaderControls);
+            //console.log(shaderControls);
+        }
+
+        function updateControlsLabel(shaderControls) {
+            document.getElementById("controlALabel").innerText = shaderControls.x;
+            document.getElementById("controlBLabel").innerText = shaderControls.y;
+            document.getElementById("controlCLabel").innerText = shaderControls.z;
+        }
+
+        function updateControlSliders(shaderControls) {
+            document.getElementById("controlA").value = (shaderControls.x * 50 + 50).toString();
+            document.getElementById("controlB").value = (shaderControls.y * 50 + 50).toString();
+            document.getElementById("controlC").value = (shaderControls.z * 50 + 50).toString();
+        }
+
+        function updateVertexDensity(newVertexCount) {
+            var min = 5;
+            var max = 200;
+            var clamped = Math.min(Math.max(newVertexCount, min), max);
+
+            setupVoxelVertices(clamped);
+            document.getElementById("controlDensity").value = vertexDensity;
+
+
+        }
+
+        function resetCameraPosition() {
+            camera.position.set(2, 2, 2);
+            camOrbit.update(); // CALL AFTER MANUALLY SETTING THE CAMERA
+
+        }
+
+        function toggleAxisGizmos(object) {
+            axisGizmo.visible = object.checked;
+        }
+
+        function buildExamplesMenu() {
+            // <a class="dropdown-item" id="examplesItem" onclick="loadShader(this.innerText)">shader1</a>
+
+            var examplesContainer = $("#examplesItemsContainer");
+
+
+            shaderPool.forEach((element, index) => {
+                var examplesItemTag = $('<a class="dropdown-item" id="examplesItem" onclick="loadShader(this.innerText)">shaderName</a>');
+                examplesContainer.append(examplesItemTag.text(element.name));
+            });
+        }
+
+
+
+        // EVENTS
+        function onMouseDown(event) {
+
+            // event.preventDefault();
+
+            switch (event.which) {
+                case 1: // left mouse click
+                    break;
+
+                case 3: // right mouse click
+                    break;
+            }
+
+        }
+
+        function onKeyPressed(key) {
+            //console.log("Event Input key: " + key);
+
+            //var keyCode = key.keyCode;
+            //console.log("KeyCode: " + keyCode);
+            //var keyChar = String.fromCharCode(key.keyCode);
+            //console.log("KeyChar: " + keyChar);
+
+
+            // if (keyChar === " ") {
+
+            // }
+        }
+
+        // OTHER FUNCTIONS
+
+
+        function onWinLoad() {
+            //myCodeMirror.setValue(document.getElementById("vertexShader").textContent);
+            //myCodeMirror.setSize(document.getElementById("codeColumn").getAttribute("width"), 500);
+            //myCodeMirror.refresh();
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
