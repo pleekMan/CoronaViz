@@ -10,10 +10,10 @@
     <script src="js/libs/OrbitControls.js"></script>
 
     <!-- CODEMIRROR -->
-    <script src="js/libs/codemirror-5.43.0/lib/codemirror.js"></script>
+    <!-- <script src="js/libs/codemirror-5.43.0/lib/codemirror.js"></script>
     <link rel="stylesheet" href="js/libs/codemirror-5.43.0/lib/codemirror.css">
     <link rel="stylesheet" href="js/libs/codemirror-5.43.0/theme/darcula.css">
-    <script src="js/libs/codemirror-5.43.0/mode/glsl/glsl.js"></script>
+    <script src="js/libs/codemirror-5.43.0/mode/glsl/glsl.js"></script> -->
 
 
     <!-- Bootstrap  -->
@@ -53,18 +53,7 @@
                 </p>
             </div>
 
-            <div class="column-flex dropdown" id="examplesContainer">
-                <button class="btn btn-secondary dropdown-toggle" id="examplesButton" type="button"
-                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Examples
-                </button>
-                <div class="dropdown-menu" id="examplesItemsContainer" aria-labelledby="dropdownMenuButton">
-                    <!-- <a class="dropdown-item" id="examplesItem" onclick="loadShader(this.innerText)">shader1</a> -->
-                </div>
-            </div>
-
-
-            <div class="col" id="controls">
+            <!-- <div class="col" id="controls">
 
                 <div class="row" id="controlsContainer">
                     <div class="flex-column" id="sliderContainer">
@@ -96,7 +85,9 @@
                 </div>
 
 
-            </div>
+            </div> -->
+
+
         </div>
     </div>
 
@@ -104,15 +95,30 @@
 
     <div class="container-fluid" id="codeViewport">
         <div class="row">
-            <div class="col" id="codeColumn">
+            <!-- <div class="col" id="codeColumn">
                 <textarea id="codeText" rows="40" cols="80"></textarea>
+            </div> -->
+            <div class="col-2"> 
+                <!-- COUNTRY LIST   -->
+                <div class="column-flex dropdown" id="examplesContainer">
+                    <button class="btn btn-secondary " id="examplesButton" type="button"
+                        id="dropdownMenuButton"  aria-haspopup="true" aria-expanded="false">
+                        Pays
+                    </button>
+                    <div class="dropdown-menu stayOpen" id="examplesItemsContainer" aria-labelledby="dropdownMenuButton">
+                        <!-- <a class="dropdown-item" id="examplesItem" onclick="loadShader(this.innerText)">shader1</a> -->
+                    </div>
+                </div>
             </div>
+
             <div class="col-6" id="viewportColumn">
                 <div id="viewport"></div>
             </div>
         </div>
     </div>
 
+
+<!--     
     <div class="container-fluid">
         <div id="compileButtonContainer">
             <button type="button" class="btn btn-info btn-sm" alt="Ctrl/Cmd + R" id="compileButton"
@@ -130,7 +136,7 @@
                 </br><a href="https://github.com/pleekMan/voxelLove_webApp" target="_blank">GitHub repo</a> || Made at
                 <a href="http://recurse.com" target="_blank">The Recurse Center</a>
             </p>
-        </div>
+        </div> -->
 
         <!-- <div class="col textContainer" id="footer">
             <p>On Windows OS, you might be faced with a sad, sad empty black display.</br>
@@ -140,7 +146,7 @@
     </div>
 
     <!-- CODE MIRROR SCRIPT -->
-    <script>
+    <!-- <script>
 
         var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("codeText"), {
             //value: "Starting Text\nLine Two\nLine3",
@@ -162,9 +168,9 @@
         });
 
 
-            //myCodeMirror.setValue("Start-up Text"); // --> onWinLoad function (bototm)
+            //myCodeMirror.setValue("Start-up Text"); //
             // myCodeMirror.refresh();
-    </script>
+    </script> -->
 
 
     <!-- SHADER - VERTEX -->
@@ -209,7 +215,7 @@ void main() {
         var clock = new THREE.Clock(true);
 
         var voxelCube; // type: Points. [A Object3D class for displaying meshes as points (with gl_Points)]
-        var vertexDensity = 150.0; // INITIAL
+        var vertexDensity = 200.0; // INITIAL
         var shaderMaterial;
         var shaderPool;
 
@@ -249,7 +255,8 @@ void main() {
             document.addEventListener('mousedown', onMouseDown, false);
             document.addEventListener("keypress", onKeyPressed, false);
             window.addEventListener("load", onWinLoad, false);
-            buildExamplesMenu();
+
+            //buildExamplesMenu();
 
 
             //window.addEventListener("error", onWinError, false);
@@ -277,10 +284,13 @@ void main() {
 
             // SETUP - END
             axisGizmo = new THREE.AxesHelper(1);
+            axisGizmo.visible = false;
             scene.add(axisGizmo);
 
             // CORONAVIZ
             setupLocalCoronaDB();
+            buildCountryMenu();
+
 
             setupVoxelCube();
 
@@ -291,7 +301,7 @@ void main() {
             //updateShaderControls(1, 0, true);
             //updateShaderControls(2, 0, true);
 
-            document.getElementById("controlDensity").value = vertexDensity;
+            //document.getElementById("controlDensity").value = vertexDensity;
 
         }
 
@@ -301,7 +311,10 @@ void main() {
 
             shaderUniforms.time.value = clock.getElapsedTime();
 
-            requestAnimationFrame(animate);
+            //switchCountry(Math.floor(clock.getElapsedTime()) % coronaCasesMorts.length);
+
+
+            //requestAnimationFrame(animate);
             renderer.render(scene, camera);
 
             if (!isShaderCorrected) checkShaderError();
@@ -344,9 +357,11 @@ void main() {
             console.log(coronaCasesMorts);
             console.log(maxCases);
             console.log(maxMorts);
+
+            switchCountry(0);
         }
 
-        function switchCountry(country){
+        function switchCountry(country) {
             selectedCountry = country;
             console.log("---|| " + coronaCasesMorts[selectedCountry].name);
             console.log("---|| Population " + coronaCasesMorts[selectedCountry].population);
@@ -359,14 +374,17 @@ void main() {
             console.log("Cases / Pop: \t" + casesPerPopulation + "\t => TIME/FAST");
             console.log("Morts / Pop: \t" + mortsPerPopulation + "\t => INNER ARC");
             console.log("Morts / Cases: \t" + mortsPerCases + "\t => CAGE SIZE");
-            
+
             casesPerPopulation *= 10000;
-            mortsPerPopulation *= 10000 * -1;
+            mortsPerPopulation *= 10000 * 1;
             mortsPerCases *= 10.0;
 
-            shaderControls.setComponent(0, casesPerPopulation); // 0.64
-            shaderControls.setComponent(1, mortsPerPopulation); // -0.46
-            shaderControls.setComponent(2, mortsPerCases);
+            mortsPerPopulation = clamp(mortsPerPopulation, -1, 1);
+            //mortsPerPopulation = clamp(mortsPerPopulation,-1,1);
+
+            shaderControls.setComponent(0, casesPerPopulation); // 0.64 // TIME
+            shaderControls.setComponent(1, mortsPerPopulation); // -0.46 // INNER ARC
+            shaderControls.setComponent(2, mortsPerCases); // CAGE SIZE - OUTER ARC
 
 
 
@@ -374,10 +392,18 @@ void main() {
             console.log(shaderControls);
         }
 
-        function getCountryId(countryName){
+        function getCountryId(countryName) {
             for (let i = 0; i < coronaCasesMorts.length; i++) {
-                if(coronaCasesMorts[i].name == countryName) return i;
+                if (coronaCasesMorts[i].name == countryName) return i;
             }
+        }
+
+        function switchCountryByName(name) {
+            switchCountry(getCountryId(name));
+        }
+
+        function clamp(val, min, max) {
+            return val > max ? max : val < min ? min : val;
         }
 
 
@@ -394,7 +420,6 @@ void main() {
                 "controls": { value: shaderControls }
             }
 
-            //var startShaderCode = shaderPool[0].code.join("\n");
 
 
             shaderMaterial = new THREE.ShaderMaterial({
@@ -406,12 +431,6 @@ void main() {
                 transparent: true,
                 vertexColors: true
             });
-
-
-            // shaderInputCode = startShaderCode;
-            // previousShaderCode = shaderInputCode;
-            //shaderInputCode = document.getElementById('vertexShader').textContent;
-            //previousShaderCode = shaderInputCode;
 
 
             voxelCube.material = shaderMaterial;
@@ -463,9 +482,9 @@ void main() {
             voxelCube.geometry = geometry;
         }
 
-        function sendCode() {
+        function sendCode(codeString) {
             //var codeText = document.getElementById("codeText").value;
-            var codeString = myCodeMirror.getValue();
+            //var codeString = myCodeMirror.getValue();
             //console.log(codeString);
 
             shaderInputCode = codeString;
@@ -485,12 +504,12 @@ void main() {
             if (sliced === "ERROR") {
                 updateShader(previousShaderCode);
                 isShaderCorrected = true;
-                updateErrorMessage(false, infoString);
+                //updateErrorMessage(false, infoString);
                 return false;
             } else {
                 previousShaderCode = shaderInputCode;
                 isShaderCorrected = true;
-                updateErrorMessage(true, "");
+                //updateErrorMessage(true, "");
                 return true;
             }
         }
@@ -541,16 +560,16 @@ void main() {
             if (shaderObject != null) {
                 // SET CODE IN EDITOR
                 var shaderCode = shaderObject.code.join("\n");
-                myCodeMirror.setValue(shaderCode);
+                // myCodeMirror.setValue(shaderCode);
 
-                // UPDATE GLOBAL shaderControl
-                updateShaderControls(0, shaderObject.controlsInitial[0], true);
-                updateShaderControls(1, shaderObject.controlsInitial[1], true);
-                updateShaderControls(2, shaderObject.controlsInitial[2], true);
+                // // UPDATE GLOBAL shaderControl
+                // updateShaderControls(0, shaderObject.controlsInitial[0], true);
+                // updateShaderControls(1, shaderObject.controlsInitial[1], true);
+                // updateShaderControls(2, shaderObject.controlsInitial[2], true);
 
                 // UPDATE GUI
-                updateControlSliders(shaderControls);
-                updateControlsLabel(shaderControls);
+                //updateControlSliders(shaderControls);
+                //updateControlsLabel(shaderControls);
 
                 // SEND TO ENGINE
                 sendCode(shaderCode);
@@ -577,7 +596,7 @@ void main() {
 
             //shaderControls.setComponent(channel, value);
 
-            updateControlsLabel(shaderControls);
+            //updateControlsLabel(shaderControls);
             //console.log(shaderControls);
         }
 
@@ -622,6 +641,18 @@ void main() {
 
             shaderPool.forEach((element, index) => {
                 var examplesItemTag = $('<a class="dropdown-item" id="examplesItem" onclick="loadShader(this.innerText)">shaderName</a>');
+                examplesContainer.append(examplesItemTag.text(element.name));
+            });
+        }
+
+        function buildCountryMenu() {
+            // <a class="dropdown-item" id="examplesItem" onclick="loadShader(this.innerText)">shader1</a>
+
+            var examplesContainer = $("#examplesItemsContainer");
+
+
+            coronaCasesMorts.forEach((element, index) => {
+                var examplesItemTag = $('<a class="dropdown-item" id="examplesItem" onclick="switchCountryByName(this.innerText)">shaderName</a>');
                 examplesContainer.append(examplesItemTag.text(element.name));
             });
         }

@@ -64,13 +64,15 @@ a>code{
 	line-height: 20px;
 }
 
-.dropdown{
-}
 
 #examplesContainer{
 	/* text-align: right; */
-	right: 29px;
-	top: 38px;
+	/* right: 29px;
+	top: 38px; */
+}
+
+.stayOpen{
+	display:block !important;
 }
 
 .dropdown-toggle{
@@ -81,14 +83,25 @@ a>code{
 
 #examplesButton{
 	font-size: 13px;
-	border-bottom: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: solid;
+	background-color: black;
+	padding-left: 30px;
+	border-width: 2px;
+	border-radius: 0px;;
 }
 
 .dropdown-item{
-	background-color: #2b2b2b;
+	background-color: black;
 	border-radius: 0;
 	font-size: 13px;
 	color: white;
+}
+
+.dropdown-menu{
+	padding: 0px;
 }
 
 #examplesItem{
@@ -151,10 +164,14 @@ a>code{
 */
 
 #viewportColumn {
-	flex: 0 0 500px;
+	/* flex: 0 0 500px; */
 	margin: 0px;
 	padding: 0px;
 	background-color: black;
+	position: fixed;
+	left: 300px;
+	top: 200px;
+	border-style: solid;
 }
 
 #viewport {
@@ -384,3 +401,8 @@ label {
 	height: 500px;
 	font-size: 0.75rem;
 }
+
+
+/* CORONA VIZ  */
+
+
