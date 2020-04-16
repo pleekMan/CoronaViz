@@ -230,6 +230,7 @@ void main() {
         var selectedCountry = 0;
         var maxCases = 0;
         var maxMorts = 0;
+        var multiplier = 1000;
 
         //$.getJSON("http://www.pleek.net/coronaviz/data/allowJsonAccess.php?f=coronaDataTest", function (data) {
         // $.getJSON("https://opendata.ecdc.europa.eu/covid19/casedistribution/json/", function (data) {
@@ -345,11 +346,29 @@ void main() {
             console.log(maxMorts);
         }
 
-        function switchToCountry(country){
+        function switchCountry(country){
             selectedCountry = country;
-            shaderControls.setComponent(0, (coronaCasesMorts[selectedCountry].cases / coronaCasesMorts[selectedCountry].population)*1000);
-            shaderControls.setComponent(1,0.5);
-            shaderControls.setComponent(2,0.5);
+
+            let casesPerPopulation = (coronaCasesMorts[selectedCountry].cases / coronaCasesMorts[selectedCountry].population);
+            let mortsPerPopulation = (coronaCasesMorts[selectedCountry].morts / coronaCasesMorts[selectedCountry].population);
+            let mortsPerCases = (coronaCasesMorts[selectedCountry].morts / coronaCasesMorts[selectedCountry].cases);
+
+            casesPerPopulation *= 10000;
+            mortsPerPopulation *= 10000 * -1;
+            mortsPerCases *= 2.0;
+
+            shaderControls.setComponent(0, casesPerPopulation); // 0.64
+            shaderControls.setComponent(1, mortsPerPopulation); // -0.46
+            shaderControls.setComponent(2, mortsPerCases);
+
+            console.log("---|| " + coronaCasesMorts[selectedCountry].name);
+
+            console.log("Cases / Pop: \t" + casesPerPopulation);
+            console.log("Morts / Pop: \t" + mortsPerPopulation);
+            console.log("Morts / Cases: \t" + mortsPerCases);
+
+            console.log("-| Shader Controls");
+            console.log(shaderControls);
         }
 
 
