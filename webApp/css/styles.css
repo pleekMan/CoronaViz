@@ -1,8 +1,8 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway);
+@import url('https://fonts.googleapis.com/css2?family=Fauna+One&display=swap');
 @charset "utf-8";
 body {
 	background-color: black;
-	font-family: 'Raleway', Verdana, Geneva, Arial, sans-serif;
+	font-family: 'Fauna One', Verdana, Geneva, Arial, sans-serif;
 }
 
 .col {
@@ -42,8 +42,7 @@ a>code{
 
 #headerTitle {
 	color: white;
-	font-family: 'Raleway', Verdana, Geneva, Arial, sans-serif;
-	text-align: center;
+	font-size: 30px;
 }
 
 #topMenu{
@@ -60,8 +59,9 @@ a>code{
 }
 
 #description p{
-	font-size: 12px;
-	line-height: 20px;
+	font-size: 11px;
+	line-height: 15px;
+	color: white;
 }
 
 
@@ -69,6 +69,7 @@ a>code{
 	/* text-align: right; */
 	/* right: 29px;
 	top: 38px; */
+	margin-top: 50px;
 }
 
 .stayOpen{
@@ -88,9 +89,9 @@ a>code{
 	border-right: none;
 	border-bottom: solid;
 	background-color: black;
-	padding-left: 30px;
+	padding-left: 267px;
 	border-width: 2px;
-	border-radius: 0px;;
+	border-radius: 0px;
 }
 
 .dropdown-item{
@@ -106,10 +107,14 @@ a>code{
 
 #examplesItem{
 	color: white;
+	text-align: right;
+	font-size: 11px;
 }
+
 #examplesItem:hover{
 	color:  #2b2b2b;
 	cursor: pointer;
+	background-color: #D1CF6C;
 }
 
 .dropdown-menu{
@@ -166,12 +171,13 @@ a>code{
 #viewportColumn {
 	/* flex: 0 0 500px; */
 	margin: 0px;
+	margin-top: 30px;
 	padding: 0px;
 	background-color: black;
 	position: fixed;
-	left: 300px;
-	top: 200px;
-	border-style: solid;
+	left: 350px;
+	/* top: 200px; */
+	/* border-style: solid; */
 }
 
 #viewport {
@@ -406,3 +412,12 @@ label {
 /* CORONA VIZ  */
 
 
+#countryData{
+	margin-left: 5px;
+	color: #D1CF6C;
+	font-size: 11px;
+}
+
+/* .dropdown-item :hover{
+	background-color: #D1CF6C;
+} */

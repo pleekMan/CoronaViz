@@ -33,16 +33,10 @@
 
 <body>
 
-    <nav class="navbar navbar-light">
-        <a class="navbar-brand" id="headerTitle" href="#">
-            <img src="images/voxelLove_50px.png" width="50" height="50" class="d-inline-block align-top"
-                alt="Voxel Love">
-            Vertex Love
-        </a>
-    </nav>
 
 
-    <div class="container-fluid" id="middle">
+
+    <!-- <div class="container-fluid" id="middle">
         <div class="row">
             <div class="col textContainer" id="description">
                 <p>A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check out
@@ -53,7 +47,7 @@
                 </p>
             </div>
 
-            <!-- <div class="col" id="controls">
+            <div class="col" id="controls">
 
                 <div class="row" id="controlsContainer">
                     <div class="flex-column" id="sliderContainer">
@@ -85,11 +79,11 @@
                 </div>
 
 
-            </div> -->
+            </div>
 
 
         </div>
-    </div>
+    </div> -->
 
     <!-- EDITOR + VIEWPORT -->
 
@@ -98,27 +92,50 @@
             <!-- <div class="col" id="codeColumn">
                 <textarea id="codeText" rows="40" cols="80"></textarea>
             </div> -->
-            <div class="col-2"> 
+            <div class="col-2">
                 <!-- COUNTRY LIST   -->
                 <div class="column-flex dropdown" id="examplesContainer">
-                    <button class="btn btn-secondary " id="examplesButton" type="button"
-                        id="dropdownMenuButton"  aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary " id="examplesButton" type="button" id="dropdownMenuButton"
+                        aria-haspopup="true" aria-expanded="false">
                         Pays
                     </button>
-                    <div class="dropdown-menu stayOpen" id="examplesItemsContainer" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu stayOpen" id="examplesItemsContainer"
+                        aria-labelledby="dropdownMenuButton">
                         <!-- <a class="dropdown-item" id="examplesItem" onclick="loadShader(this.innerText)">shader1</a> -->
                     </div>
                 </div>
             </div>
 
+            <!-- RIGHT COLUMN -->
             <div class="col-6" id="viewportColumn">
-                <div id="viewport"></div>
+
+                <div class="row" id="headerTitle">CoronaViz</div>
+
+                <div class="row" id="description">
+                    <p>A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
+                        out
+                        A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
+                        out
+                        A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
+                        out
+                        A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
+                        out
+                        A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
+                        out
+                    </p>
+                </div>
+                <div class="row" id="countryData">
+                    Country Data
+                </div>
+                <div class="row">
+                    <div id="viewport"></div>
+                </div>
             </div>
         </div>
     </div>
 
 
-<!--     
+    <!--     
     <div class="container-fluid">
         <div id="compileButtonContainer">
             <button type="button" class="btn btn-info btn-sm" alt="Ctrl/Cmd + R" id="compileButton"
@@ -138,7 +155,7 @@
             </p>
         </div> -->
 
-        <!-- <div class="col textContainer" id="footer">
+    <!-- <div class="col textContainer" id="footer">
             <p>On Windows OS, you might be faced with a sad, sad empty black display.</br>
             This is a webGL/ANGLE compatibility issue. Working on it...
             </p>
@@ -370,6 +387,7 @@ void main() {
             let mortsPerPopulation = (coronaCasesMorts[selectedCountry].morts / coronaCasesMorts[selectedCountry].population);
             let mortsPerCases = (coronaCasesMorts[selectedCountry].morts / coronaCasesMorts[selectedCountry].cases);
 
+            fillCountryDataDiv(coronaCasesMorts[selectedCountry].name, coronaCasesMorts[selectedCountry].cases, coronaCasesMorts[selectedCountry].morts, mortsPerCases, coronaCasesMorts[selectedCountry].population);
 
             console.log("Cases / Pop: \t" + casesPerPopulation + "\t => TIME/FAST");
             console.log("Morts / Pop: \t" + mortsPerPopulation + "\t => INNER ARC");
@@ -404,6 +422,17 @@ void main() {
 
         function clamp(val, min, max) {
             return val > max ? max : val < min ? min : val;
+        }
+
+        function fillCountryDataDiv(name, cases, morts, mortsCases, pop) {
+
+            let mortsCasesPercent = (mortsCases * 100).toFixed(2);
+
+            var texte = "> " + name + " <" + "</br>Population: " + pop + "</br>Cases: " + cases + "</br>Morts: " + morts + "</br>Morts / Cases: " + mortsCasesPercent + "%";
+
+            var dataDiv = document.getElementById("countryData");
+            dataDiv.innerHTML = texte;
+
         }
 
 
