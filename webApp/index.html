@@ -32,59 +32,6 @@
 </head>
 
 <body>
-
-
-
-
-    <!-- <div class="container-fluid" id="middle">
-        <div class="row">
-            <div class="col textContainer" id="description">
-                <p>A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check out
-                    the <code>Examples</code> menu.</br>
-                    Shader inputs: each vertex’s <code>position.xyz</code> and <code>color.rgb</code></br>
-                    The <code>Red, Green and Blue sliders</code> over to the right are mapped to
-                    <code>controls.rgb</code>, play with them at will.
-                </p>
-            </div>
-
-            <div class="col" id="controls">
-
-                <div class="row" id="controlsContainer">
-                    <div class="flex-column" id="sliderContainer">
-                        <input type="range" min="1" max="100" value="50" class="slider" id="controlA"
-                            oninput="updateShaderControls(0,this.value, false)">
-                        <label id="controlALabel">0.01</label>
-                        <input type="range" min="1" max="100" value="50" class="slider" id="controlB"
-                            oninput="updateShaderControls(1,this.value, false)">
-                        <label id="controlBLabel">-0.34</label>
-                        <input type="range" min="1" max="100" value="50" class="slider" id="controlC"
-                            oninput="updateShaderControls(2,this.value, false)">
-                        <label id="controlCLabel">1.00</label>
-                    </div>
-                    <div class="flex-column" id="sliderContainer2">
-                        <input class="form-control-sm" id="controlDensity" placeholder="100"
-                            onchange="updateVertexDensity(this.value)">
-                        <small class="form-text text-muted" id="controlDensityLabel" style="color:orangered;">Vertex
-                            Density<sup>3</sup></small>
-                    </div>
-                    <div class="flex-column" id="sliderContainer2">
-                        <button type="button" class="btn btn-info btn-sm" id="controlResetCamera"
-                            onclick="resetCameraPosition()">Reset Camera</button>
-                        <div id="checkBoxContainer">
-                            <input type="checkbox" class="custom-control-input" id="axisCheckBox" checked
-                                onclick="toggleAxisGizmos(this)">
-                            <label class="custom-control-label" for="axisCheckBox">Show Axis</label>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-        </div>
-    </div> -->
-
     <!-- EDITOR + VIEWPORT -->
 
     <div class="container-fluid" id="codeViewport">
@@ -109,9 +56,11 @@
             <!-- RIGHT COLUMN -->
             <div class="col-6" id="viewportColumn">
 
-                <div class="row" id="headerTitle">CoronaViz</div>
+                <div class="row" id="headerTitle">
+                    <h1>[[*]]</h1></div>
 
                 <div class="row" id="description">
+                    <h5>Virus and walls</h5>
                     <p>A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
                         out
                         A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
@@ -349,15 +298,18 @@ void main() {
                 population: parseInt(coronaData.records[0].popData2018)
             }
             coronaData.records.forEach(element => {
-                if (element.countriesAndTerritories != countryData.name) {
-                    coronaCasesMorts.push(Object.assign({}, countryData)); // MAKE A COPY
-                    countryData.cases = 0;
-                    countryData.morts = 0;
-                    countryData.name = element.countriesAndTerritories;
-                    countryData.population = parseInt(element.popData2018);
+
+                if (element.popData2018 != "") { // FILTER OUT SOME DB ERRORS
+                    if (element.countriesAndTerritories != countryData.name) {
+                        coronaCasesMorts.push(Object.assign({}, countryData)); // MAKE A COPY
+                        countryData.cases = 0;
+                        countryData.morts = 0;
+                        countryData.name = element.countriesAndTerritories;
+                        countryData.population = parseInt(element.popData2018);
+                    }
+                    countryData.cases += parseInt(element.cases);
+                    countryData.morts += parseInt(element.deaths);
                 }
-                countryData.cases += parseInt(element.cases);
-                countryData.morts += parseInt(element.deaths);
 
             });
             // FOR LAST COUNTRY

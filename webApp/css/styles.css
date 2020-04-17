@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Fauna+One&display=swap');
 @charset "utf-8";
+
+:root{
+	--color-main: white;
+	--color-deux: #bbe37e;
+	--color-black: black;
+}
+
 body {
 	background-color: black;
 	font-family: 'Fauna One', Verdana, Geneva, Arial, sans-serif;
@@ -64,12 +71,16 @@ a>code{
 	color: white;
 }
 
+#description h5{
+	color: var(--color-deux);
+}
+
 
 #examplesContainer{
 	/* text-align: right; */
 	/* right: 29px;
 	top: 38px; */
-	margin-top: 50px;
+	margin-top: 84px;
 }
 
 .stayOpen{
@@ -414,7 +425,7 @@ label {
 
 #countryData{
 	margin-left: 5px;
-	color: #D1CF6C;
+	color: var(--color-deux);
 	font-size: 11px;
 }
 
