@@ -67,10 +67,11 @@ a>code{
 }
 
 #descriptionText{
-	font-size: 11px;
+	font-size: 12px;
 	line-height: 15px;
 	color: white;
 	margin-bottom: 15px;
+	line-height: 17px;
 }
 
 #description h5{
@@ -449,4 +450,11 @@ label {
 
 #languagesContainer a:hover{
 	color: var(--color-main);
+}
+
+#dataSource{
+	margin-left: 5px;
+	color: var(--color-gray);
+	font-size: 11px;
+	line-height: 23px;
 }

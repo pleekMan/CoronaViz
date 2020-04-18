@@ -78,9 +78,16 @@
                 <div class="row" id="countryData">
                     Country Data
                 </div>
+                <div class="row" id="dataSource">
+                    Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/
+                    <br>
+                    Souris/Pointer: Tourner et Zoomer
+                </div>
                 <div class="row">
                     <div id="viewport"></div>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -203,6 +210,7 @@ void main() {
             // CORONAVIZ
             setupLocalCoronaDB();
             buildCountryMenu();
+            changeLanguage("french");
 
 
             setupVoxelCube();
@@ -227,7 +235,7 @@ void main() {
             //switchCountry(Math.floor(clock.getElapsedTime()) % coronaCasesMorts.length);
 
 
-            //requestAnimationFrame(animate);
+            requestAnimationFrame(animate);
             renderer.render(scene, camera);
 
             if (!isShaderCorrected) checkShaderError();
@@ -345,7 +353,7 @@ void main() {
                 deathText = "Muertes"
             }
 
-            var texte = "> " + name + " <" + "</br>"+ popText +": " + pop + "</br>"+casText+": " + cases + "</br>"+deathText+": " + morts + "</br>"+deathText+" / "+casText+": " + mortsCasesPercent + "%";
+            var texte = "> " + name + " <" + "</br>" + popText + ": " + pop + "</br>" + casText + ": " + cases + "</br>" + deathText + ": " + morts + "</br>" + deathText + " / " + casText + ": " + mortsCasesPercent + "%";
 
             var dataDiv = document.getElementById("countryData");
             dataDiv.innerHTML = texte;
@@ -359,17 +367,20 @@ void main() {
 
             var subTitle = $("#subTitle");
             var descriptionText = $("#descriptionText");
+            var dataSourceText = $("#dataSource");
 
             if (lang == "french") {
                 subTitle.text("Forme Confinée");
                 descriptionText.text("Cette visualisation abstraite capture des statistiques COVID-19 à jour pour en traduire vers la génération d'une forme / créature agile et dynamique, qui se déplace parfois librement, et d'autres fois est étouffée et confinée dans une boîte. Les pays les plus touchés sont obligés d'imposer des règles de confinement plus strictes, ce qui produit une certaine forme dans le organisme, qui diffère en représentant les pays les moins touchés.");
-            } else if(lang == "english"){
+                dataSourceText.html("Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Souris / Pointer: Tourner et Zoomer")
+            } else if (lang == "english") {
                 subTitle.text("Confined Shape");
                 descriptionText.text("This abstract visualization captures up-to-date COVID-19 statistics to translate into the generation of an agile and dynamic form / creature, sometimes moving freely, and other times suffocated and confined within a box. The most affected countries are forced to impose stricter confinement rules, producing a particular shape in the organism, which differs when representing less impacted countries.");
+                dataSourceText.html("Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Mouse / Pointer: Rotate and Zoom")
             } else {
                 subTitle.text("Forma Confinada");
                 descriptionText.text("This abstract visualization captures up-to-date COVID-19 statistics to translate into the generation of an agile and dynamic form / creature, sometimes moving freely, and other times suffocated and confined within a box. The most affected countries are forced to impose stricter confinement rules, producing a particular shape in the organism, which differs when representing less impacted countries.");
- 
+                dataSourceText.html("Fuente: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Ratón / Puntero: Rotar y Zoom")
             }
 
             switchCountry(selectedCountry); // TO UPDATE CountryDataDiv
