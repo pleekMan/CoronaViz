@@ -44,7 +44,7 @@
                 <div class="column-flex dropdown" id="examplesContainer">
                     <button class="btn btn-secondary " id="examplesButton" type="button" id="dropdownMenuButton"
                         aria-haspopup="true" aria-expanded="false">
-                        Pays
+
                     </button>
                     <div class="dropdown-menu stayOpen" id="examplesItemsContainer"
                         aria-labelledby="dropdownMenuButton">
@@ -57,21 +57,23 @@
             <div class="col-6" id="viewportColumn">
 
                 <div class="row" id="headerTitle">
-                    <h1>[[*]]</h1></div>
+                    <h1>[[*]]</h1>
+                </div>
 
                 <div class="row" id="description">
-                    <h5>Virus and walls</h5>
-                    <p>A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
-                        out
-                        A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
-                        out
-                        A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
-                        out
-                        A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
-                        out
-                        A cube of size 1 x 1 x 1, filled with points. Sculpt it by coding the vertex shader below. Check
-                        out
-                    </p>
+                    <h5 id="subTitle">Virus and walls</h5>
+                    <div id="languagesContainer">
+                        <a id="languageFrench" href="javascript:void(0);">Fran&ccedil;ais |</a>
+                        <a id="languageEnglish" href="javascript:void(0);">English </a>
+                        <a id="languageSpanish" href="javascript:void(0);">| Espa&ntilde;ol</a>
+                    </div>
+                    <div id="descriptionText">
+                        Esta visualización abstracta captura estadísticas del COVID-19, actualizadas, para traducirlas
+                        en la generacion de una forma/criatura ágil y dinámica, que a veces se mueve libremente, y otras
+                        veces se encuentra sofocada y confinada en una caja. Los paises más afectados se ven obligados a
+                        imponer reglas de confinamiento mas estrictas, lo que produce cierta forma en el organismo, la
+                        cual es diferente al representar paises menos impactados.
+                    </div>
                 </div>
                 <div class="row" id="countryData">
                     Country Data
@@ -82,62 +84,6 @@
             </div>
         </div>
     </div>
-
-
-    <!--     
-    <div class="container-fluid">
-        <div id="compileButtonContainer">
-            <button type="button" class="btn btn-info btn-sm" alt="Ctrl/Cmd + R" id="compileButton"
-                onclick="sendCode()">Compile</button>
-            <label id="compileButtonLabel" for="compileButton"> <small> - Keyboard shortcut: </small>Ctrl / Cmd + R
-                <small> on code editor</small></label>
-        </div>
-        <div class="alert alert-danger" id="errorDiv" role="alert">
-            Error Messages
-        </div>
-        <div class="col textContainer" id="credits">
-            <p><a href="http://www.pleek.net" target="_blank"> <code>www.pleek.net</code></a> &nbsp;&nbsp;&nbsp; Tools
-                used: <a href="https://threejs.org/" target="_blank">THREE.js</a>, <a href="https://codemirror.net/"
-                    target="_blank">CodeMirror</a>, <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>
-                </br><a href="https://github.com/pleekMan/voxelLove_webApp" target="_blank">GitHub repo</a> || Made at
-                <a href="http://recurse.com" target="_blank">The Recurse Center</a>
-            </p>
-        </div> -->
-
-    <!-- <div class="col textContainer" id="footer">
-            <p>On Windows OS, you might be faced with a sad, sad empty black display.</br>
-            This is a webGL/ANGLE compatibility issue. Working on it...
-            </p>
-        </div> -->
-    </div>
-
-    <!-- CODE MIRROR SCRIPT -->
-    <!-- <script>
-
-        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("codeText"), {
-            //value: "Starting Text\nLine Two\nLine3",
-            mode: "glsl",
-            theme: "darcula",
-            lineNumbers: true
-        });
-        //myCodeMirror.setSize(900, 500);
-
-        myCodeMirror.setOption("extraKeys", {
-            "Cmd-R": function (cm) {
-                sendCode();
-                // var spaces = Array(cm.getOption("indentUnit") + 1).join("--");
-                // cm.replaceSelection(spaces);
-            },
-            "Ctrl-R": function (cm) {
-                sendCode();
-            }
-        });
-
-
-            //myCodeMirror.setValue("Start-up Text"); //
-            // myCodeMirror.refresh();
-    </script> -->
-
 
     <!-- SHADER - VERTEX -->
     <script type="x-shader/x-vertex" id="vertexShader">
@@ -203,6 +149,7 @@ void main() {
         var maxCases = 0;
         var maxMorts = 0;
         var multiplier = 1000;
+        var lang = "french";
 
         //$.getJSON("http://www.pleek.net/coronaviz/data/allowJsonAccess.php?f=coronaDataTest", function (data) {
         // $.getJSON("https://opendata.ecdc.europa.eu/covid19/casedistribution/json/", function (data) {
@@ -291,7 +238,7 @@ void main() {
 
         function setupLocalCoronaDB() {
 
-            let countryData = {
+            var countryData = {
                 name: coronaData.records[0].countriesAndTerritories,
                 cases: 0,
                 morts: 0,
@@ -335,9 +282,9 @@ void main() {
             console.log("---|| " + coronaCasesMorts[selectedCountry].name);
             console.log("---|| Population " + coronaCasesMorts[selectedCountry].population);
 
-            let casesPerPopulation = (coronaCasesMorts[selectedCountry].cases / coronaCasesMorts[selectedCountry].population);
-            let mortsPerPopulation = (coronaCasesMorts[selectedCountry].morts / coronaCasesMorts[selectedCountry].population);
-            let mortsPerCases = (coronaCasesMorts[selectedCountry].morts / coronaCasesMorts[selectedCountry].cases);
+            var casesPerPopulation = (coronaCasesMorts[selectedCountry].cases / coronaCasesMorts[selectedCountry].population);
+            var mortsPerPopulation = (coronaCasesMorts[selectedCountry].morts / coronaCasesMorts[selectedCountry].population);
+            var mortsPerCases = (coronaCasesMorts[selectedCountry].morts / coronaCasesMorts[selectedCountry].cases);
 
             fillCountryDataDiv(coronaCasesMorts[selectedCountry].name, coronaCasesMorts[selectedCountry].cases, coronaCasesMorts[selectedCountry].morts, mortsPerCases, coronaCasesMorts[selectedCountry].population);
 
@@ -363,7 +310,7 @@ void main() {
         }
 
         function getCountryId(countryName) {
-            for (let i = 0; i < coronaCasesMorts.length; i++) {
+            for (var i = 0; i < coronaCasesMorts.length; i++) {
                 if (coronaCasesMorts[i].name == countryName) return i;
             }
         }
@@ -378,12 +325,54 @@ void main() {
 
         function fillCountryDataDiv(name, cases, morts, mortsCases, pop) {
 
-            let mortsCasesPercent = (mortsCases * 100).toFixed(2);
+            var mortsCasesPercent = (mortsCases * 100).toFixed(2);
 
-            var texte = "> " + name + " <" + "</br>Population: " + pop + "</br>Cases: " + cases + "</br>Morts: " + morts + "</br>Morts / Cases: " + mortsCasesPercent + "%";
+            var popText = "Population";
+            var casText = "Cases";
+            var deathText = "Deaths"
+
+            if (lang == "french") {
+                popText = "Population";
+                casText = "Cas";
+                deathText = "Morts";
+            } else if (lang == "english") {
+                popText = "Population";
+                casText = "Cases";
+                deathText = "Deaths"
+            } else {
+                popText = "Población";
+                casText = "Casos";
+                deathText = "Muertes"
+            }
+
+            var texte = "> " + name + " <" + "</br>"+ popText +": " + pop + "</br>"+casText+": " + cases + "</br>"+deathText+": " + morts + "</br>"+deathText+" / "+casText+": " + mortsCasesPercent + "%";
 
             var dataDiv = document.getElementById("countryData");
             dataDiv.innerHTML = texte;
+
+        }
+
+
+        function changeLanguage(language) {
+            console.log("Language to: " + language);
+            lang = language;
+
+            var subTitle = $("#subTitle");
+            var descriptionText = $("#descriptionText");
+
+            if (lang == "french") {
+                subTitle.text("Forme Confinée");
+                descriptionText.text("Cette visualisation abstraite capture des statistiques COVID-19 à jour pour en traduire vers la génération d'une forme / créature agile et dynamique, qui se déplace parfois librement, et d'autres fois est étouffée et confinée dans une boîte. Les pays les plus touchés sont obligés d'imposer des règles de confinement plus strictes, ce qui produit une certaine forme dans le organisme, qui diffère en représentant les pays les moins touchés.");
+            } else if(lang == "english"){
+                subTitle.text("Confined Shape");
+                descriptionText.text("This abstract visualization captures up-to-date COVID-19 statistics to translate into the generation of an agile and dynamic form / creature, sometimes moving freely, and other times suffocated and confined within a box. The most affected countries are forced to impose stricter confinement rules, producing a particular shape in the organism, which differs when representing less impacted countries.");
+            } else {
+                subTitle.text("Forma Confinada");
+                descriptionText.text("This abstract visualization captures up-to-date COVID-19 statistics to translate into the generation of an agile and dynamic form / creature, sometimes moving freely, and other times suffocated and confined within a box. The most affected countries are forced to impose stricter confinement rules, producing a particular shape in the organism, which differs when representing less impacted countries.");
+ 
+            }
+
+            switchCountry(selectedCountry); // TO UPDATE CountryDataDiv
 
         }
 
@@ -673,9 +662,19 @@ void main() {
 
 
         function onWinLoad() {
-            //myCodeMirror.setValue(document.getElementById("vertexShader").textContent);
-            //myCodeMirror.setSize(document.getElementById("codeColumn").getAttribute("width"), 500);
-            //myCodeMirror.refresh();
+
+            document.getElementById("languageFrench").onclick = function () {
+                changeLanguage("french");
+                return false;
+            }
+            document.getElementById("languageEnglish").onclick = function () {
+                changeLanguage("english");
+                return false;
+            }
+            document.getElementById("languageSpanish").onclick = function () {
+                changeLanguage("spanish");
+                return false;
+            }
         }
 
 
