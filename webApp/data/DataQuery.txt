@@ -1,3 +1,12 @@
 Where to get the data, realtime as JSON:
 
 GET https://opendata.ecdc.europa.eu/covid19/casedistribution/json/ 
+
+
+
+
+> France <
+Population: 66987244
+Cas: 98076
+Morts: 14967
+Morts / Cas: 15.26%

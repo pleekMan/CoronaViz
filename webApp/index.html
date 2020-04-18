@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
     <!-- CORONAVIZ -->
-    <script src="data/coronaData_2020-4-14.js"></script>
+    <script src="data/coronaDataLatest.js"></script>
     <script src="js/shaderPool.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 
@@ -163,8 +163,9 @@ void main() {
         //     var coronaData = data;
         //     console.log(coronaData);
         // });
-        console.log("CoronaData:");
-        console.log(coronaData);
+        
+        // console.log("CoronaData:");
+        // console.log(coronaData);
 
         setup();
         animate();
@@ -276,19 +277,19 @@ void main() {
                 maxMorts = Math.max(maxMorts, element.morts);
             });
 
-            console.log("--|| LOCAL CORONA DB:");
+            // console.log("--|| LOCAL CORONA DB:");
 
-            console.log(coronaCasesMorts);
-            console.log(maxCases);
-            console.log(maxMorts);
+            // console.log(coronaCasesMorts);
+            // console.log(maxCases);
+            // console.log(maxMorts);
 
             switchCountry(0);
         }
 
         function switchCountry(country) {
             selectedCountry = country;
-            console.log("---|| " + coronaCasesMorts[selectedCountry].name);
-            console.log("---|| Population " + coronaCasesMorts[selectedCountry].population);
+            // console.log("---|| " + coronaCasesMorts[selectedCountry].name);
+            // console.log("---|| Population " + coronaCasesMorts[selectedCountry].population);
 
             var casesPerPopulation = (coronaCasesMorts[selectedCountry].cases / coronaCasesMorts[selectedCountry].population);
             var mortsPerPopulation = (coronaCasesMorts[selectedCountry].morts / coronaCasesMorts[selectedCountry].population);
@@ -296,9 +297,9 @@ void main() {
 
             fillCountryDataDiv(coronaCasesMorts[selectedCountry].name, coronaCasesMorts[selectedCountry].cases, coronaCasesMorts[selectedCountry].morts, mortsPerCases, coronaCasesMorts[selectedCountry].population);
 
-            console.log("Cases / Pop: \t" + casesPerPopulation + "\t => TIME/FAST");
-            console.log("Morts / Pop: \t" + mortsPerPopulation + "\t => INNER ARC");
-            console.log("Morts / Cases: \t" + mortsPerCases + "\t => CAGE SIZE");
+            // console.log("Cases / Pop: \t" + casesPerPopulation + "\t => TIME/FAST");
+            // console.log("Morts / Pop: \t" + mortsPerPopulation + "\t => INNER ARC");
+            // console.log("Morts / Cases: \t" + mortsPerCases + "\t => CAGE SIZE");
 
             casesPerPopulation *= 10000;
             mortsPerPopulation *= 10000 * 1;
@@ -313,8 +314,8 @@ void main() {
 
 
 
-            console.log("-| Shader Controls");
-            console.log(shaderControls);
+            // console.log("-| Shader Controls");
+            // console.log(shaderControls);
         }
 
         function getCountryId(countryName) {
