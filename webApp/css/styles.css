@@ -458,3 +458,10 @@ label {
 	font-size: 11px;
 	line-height: 23px;
 }
+
+#pleekLink{
+	float: right;
+	margin-left: 30px;;
+	color: var(--color-deux);
+	font-size: 11px;
+}

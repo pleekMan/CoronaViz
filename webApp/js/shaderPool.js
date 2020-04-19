@@ -48,7 +48,7 @@ var shaderPool = [
 			"",
 			"	// ANGLE FOR VERTEX ALPHA",
 			"	float angle = atan(vCentered.z / vCentered.x);",
-			"	angle = fract(angle * (5. * 0.64)); // controls.r",
+			"	angle = fract(angle * (8.)); // controls.r",
 			"  angle = step(0.8,angle);",
 			"	",
 			"  // ARC",
@@ -68,63 +68,6 @@ var shaderPool = [
 			"}",
 		]
 	},
-	{
-		name: "Wave",
-		controlsInitial: [0.5, 0, 0],
-		code: [
-			"// Wave :: Vertical Sine wave",
-			"// controls.r => Wave Speed",
-			"// controls.g => Move Vertically",
-			"",
-			"const float PI = 3.14159265358;",
-			"const float TWO_PI = 6.28318530718;",
-			"",
-			"uniform vec3 controls;",
-			"uniform float time; // IN SECONDS",
-			"varying vec4 vertexColor;",
-			"attribute float vertexSize;",
-			"",
-			"void main() {",
-			"",
-			"	float wavyX = position.x * sin(position.y * TWO_PI + (time * controls.r ) ); // DRAG THE RED SLIDER",
-			"	float offsetY = position.y + controls.g; // DRAG THE GREEN SLIDER",
-			"	vec4 finalPos = vec4(wavyX, offsetY, position.z, 1.0);",
-			"",
-			"	gl_Position = projectionMatrix * modelViewMatrix * finalPos;",
-			"	vertexColor = vec4(color,1.0);",
-			"	gl_PointSize = vertexSize;",
-			"}"
-		]
-
-	},
-	{
-		name: "Wave (Camera oriented)",
-		controlsInitial: [0.5, 0, 0],
-		code: [
-			"// WAVE - CAMERA ORIENTED",
-			"// MODIFYING THE VERTEX POSITION AFTER APPLYING THE MODEL-VIEW MATRIX",
-			"",
-			"const float PI = 3.14159265358;",
-			"const float TWO_PI = 6.28318530718;",
-			"const float HALF_PI = 1.57079632679;",
-			"",
-			"uniform vec3 controls; // RGB sliders",
-			"uniform float time; // IN SECONDS",
-			"varying vec4 vertexColor;",
-			"attribute float vertexSize;",
-			"",
-			"void main(){",
-			"",
-			"	vec4 camPos = modelViewMatrix * vec4(position, 1.0);",
-			"	camPos.x += sin(camPos.y * 10.) * 0.25;",
-			"",
-			"	gl_Position = projectionMatrix * camPos;",
-			"	vertexColor = vec4(color,1.0);",
-			"	gl_PointSize = vertexSize;",
-			"}",
-		]
-
-	}
 ]
 
 

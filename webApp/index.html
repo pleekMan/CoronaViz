@@ -66,6 +66,12 @@
                         <a id="languageFrench" href="javascript:void(0);">Fran&ccedil;ais |</a>
                         <a id="languageEnglish" href="javascript:void(0);">English </a>
                         <a id="languageSpanish" href="javascript:void(0);">| Espa&ntilde;ol</a>
+
+                        <!-- PLEEK.NET -->
+                        <div id="pleekLink">
+                            Made by: <a href="http://www.pleek.net" target="_blank">Agustín Ramos Anzorena</a>
+                        </div>
+
                     </div>
                     <div id="descriptionText">
                         Esta visualización abstracta captura estadísticas del COVID-19, actualizadas, para traducirlas
@@ -76,7 +82,9 @@
                     </div>
                 </div>
                 <div class="row" id="countryData">
-                    Country Data
+                    Obtention de Données...<br>
+                    Retrieving Data...<br>
+                    Obteniendo Datos...
                 </div>
                 <div class="row" id="dataSource">
                     Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/
@@ -86,6 +94,8 @@
                 <div class="row">
                     <div id="viewport"></div>
                 </div>
+
+
 
 
             </div>
@@ -369,19 +379,26 @@ void main() {
             var subTitle = $("#subTitle");
             var descriptionText = $("#descriptionText");
             var dataSourceText = $("#dataSource");
+            var pleekLinkText = $("#pleekLink");
 
             if (lang == "french") {
                 subTitle.text("Forme Confinée");
-                descriptionText.text("Cette visualisation abstraite capture des statistiques COVID-19 à jour pour en traduire vers la génération d'une forme / créature agile et dynamique, qui se déplace parfois librement, et d'autres fois est étouffée et confinée dans une boîte. Les pays les plus touchés sont obligés d'imposer des règles de confinement plus strictes, ce qui produit une certaine forme dans le organisme, qui diffère en représentant les pays les moins touchés.");
-                dataSourceText.html("Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Souris / Pointer: Tourner et Zoomer")
+                descriptionText.text("Cette visualisation abstraite capture des statistiques COVID-19  mises à jour pour les traduire vers une créature agile et dynamique, de forme similaire à celle d’un virus de type spherique, qui se déplace parfois librement, et d'autres fois étouffée et confinée dedans 4 murs. Les pays les plus touchés sont obligés d'imposer des règles de confinement plus strictes, ce qui produit une certaine forme dans l’organisme, qui diffère des représentations des pays les moins touchés.");
+                dataSourceText.html("Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Souris / Pointer: Tourner et Zoomer");
+                document.title = "Forme Confinée";
+                pleekLinkText.html('Realisé par: <a href="http://www.pleek.net" target="_blank">Agustín Ramos Anzorena</a>');
             } else if (lang == "english") {
                 subTitle.text("Confined Shape");
-                descriptionText.text("This abstract visualization captures up-to-date COVID-19 statistics to translate into the generation of an agile and dynamic form / creature, sometimes moving freely, and other times suffocated and confined within a box. The most affected countries are forced to impose stricter confinement rules, producing a particular shape in the organism, which differs when representing less impacted countries.");
-                dataSourceText.html("Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Mouse / Pointer: Rotate and Zoom")
+                descriptionText.text("This abstract visualization captures up-to-date COVID-19 statistics to translate into the generation of an agile and dynamic creature, similar in shape to that of a spherical-type virus, sometimes moving freely, and other times suffocated and confined within 4 walls. The most affected countries are forced to impose stricter confinement rules, producing a particular shape in the organism, which differs when representing less impacted countries.");
+                dataSourceText.html("Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Mouse / Pointer: Rotate and Zoom");
+                document.title = "Confined Shape";
+                pleekLinkText.html('Made by: <a href="http://www.pleek.net" target="_blank">Agustín Ramos Anzorena</a>');
             } else {
                 subTitle.text("Forma Confinada");
-                descriptionText.text("This abstract visualization captures up-to-date COVID-19 statistics to translate into the generation of an agile and dynamic form / creature, sometimes moving freely, and other times suffocated and confined within a box. The most affected countries are forced to impose stricter confinement rules, producing a particular shape in the organism, which differs when representing less impacted countries.");
-                dataSourceText.html("Fuente: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Ratón / Puntero: Rotar y Zoom")
+                descriptionText.text("Esta visualización abstracta captura estadísticas actualizadasdel COVID-19 para traducirlas en la generación de una criatura ágil y dinámica, similar en forma a un virus de tipo esférico, que a veces se mueve libremente, y otras veces se encuentra sofocada y confinada dentro de 4 paredes. Los paises más afectados se ven obligados a imponer reglas de confinamiento mas estrictas, lo que produce cierta forma en el organismo, la cual se diferencia al representar paises menos impactados.");
+                dataSourceText.html("Fuente: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Ratón / Puntero: Rotar y Zoom");
+                document.title = "Forma Confinada";
+                pleekLinkText.html('Realizado por: <a href="http://www.pleek.net" target="_blank">Agustín Ramos Anzorena</a>');
             }
 
             switchCountry(selectedCountry); // TO UPDATE CountryDataDiv

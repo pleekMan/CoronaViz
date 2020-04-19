@@ -1,14 +1,14 @@
 
 
 ESP
-Virus & muros
-Esta visualización abstracta captura estadísticas actualizadasdel COVID-19 para traducirlas en la generación de una forma/criatura ágil y dinámica, que a veces se mueve libremente, y otras veces se encuentra sofocada y confinada dentro de una caja. Los paises más afectados se ven obligados a imponer reglas de confinamiento mas estrictas, lo que produce cierta forma en el organismo, la cual se diferencia al representar paises menos impactados.
+Forma Confinada
+Esta visualización abstracta captura estadísticas actualizadasdel COVID-19 para traducirlas en la generación de una criatura ágil y dinámica, similar en forma a un virus de tipo esférico, que a veces se mueve libremente, y otras veces se encuentra sofocada y confinada dentro de 4 paredes. Los paises más afectados se ven obligados a imponer reglas de confinamiento mas estrictas, lo que produce cierta forma en el organismo, la cual se diferencia al representar paises menos impactados.
 
 ENG
-Virus & walls
-This abstract visualization captures up-to-date COVID-19 statistics to translate into the generation of an agile and dynamic form / creature, sometimes moving freely, and other times suffocated and confined within a box. The most affected countries are forced to impose stricter confinement rules, producing a particular shape in the organism, which differs when representing less impacted countries.
+Confined Shape
+This abstract visualization captures up-to-date COVID-19 statistics to translate into the generation of an agile and dynamic creature, similar in shape to that of a spherical-type virus, sometimes moving freely, and other times suffocated and confined within 4 walls. The most affected countries are forced to impose stricter confinement rules, producing a particular shape in the organism, which differs when representing less impacted countries.
 
 
 FRA
-Virus & murs
-Cette visualisation abstraite capture des statistiques COVID-19 à jour pour en traduire vers la génération d'une forme / créature agile et dynamique, qui se déplace parfois librement, et d'autres fois est étouffée et confinée dans une boîte. Les pays les plus touchés sont obligés d'imposer des règles de confinement plus strictes, ce qui produit une certaine forme dans le organisme, qui diffère en représentant les pays les moins touchés.
+Forme Confinée
+Cette visualisation abstraite capture des statistiques COVID-19  mises à jour pour les traduire vers une créature agile et dynamique, de forme similaire à celle d’un virus de type spherique, qui se déplace parfois librement, et d'autres fois étouffée et confinée dedans 4 murs. Les pays les plus touchés sont obligés d'imposer des règles de confinement plus strictes, ce qui produit une certaine forme dans l’organisme, qui diffère des représentations des pays les moins touchés.
