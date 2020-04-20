@@ -1,0 +1,30 @@
+.zero1pilule{
+	position: fixed;
+	z-index: 99;
+	cursor: pointer;
+	transition: all .1s ease-in;
+}
+
+.zero1pilule:hover{
+	transform: scale(1.1);
+}
+
+.pilule-top-left {
+	top: 5px;
+	left: 5px;
+}
+
+.pilule-top-right {
+	top: 10px;
+	right: 10px;
+}
+
+.pilule-bottom-left {
+	bottom: 5px;
+	left: 5px;
+}
+
+.pilule-bottom-right {
+	bottom: 5px;
+	right: 10px;
+}

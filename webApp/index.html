@@ -32,6 +32,9 @@
 </head>
 
 <body>
+
+    <div class="zero1pilule pilule-top-right"><a href="http://www.festivalzero1.com" target="_blank"><img src="images/pilule-image.png"></a></div>
+
     <!-- EDITOR + VIEWPORT -->
 
     <div class="container-fluid" id="codeViewport">
@@ -74,11 +77,7 @@
 
                     </div>
                     <div id="descriptionText">
-                        Esta visualización abstracta captura estadísticas del COVID-19, actualizadas, para traducirlas
-                        en la generacion de una forma/criatura ágil y dinámica, que a veces se mueve libremente, y otras
-                        veces se encuentra sofocada y confinada en una caja. Los paises más afectados se ven obligados a
-                        imponer reglas de confinamiento mas estrictas, lo que produce cierta forma en el organismo, la
-                        cual es diferente al representar paises menos impactados.
+                        Cette visualisation abstraite capture des statistiques COVID-19 mises à jour pour les traduire vers une créature agile et dynamique, de forme similaire à celle d’un virus de type spherique, qui se déplace parfois librement, et d'autres fois étouffée et confinée entre 4 murs. Les pays les plus touchés sont obligés d'imposer des règles de confinement plus strictes, ce qui produit une certaine forme dans l’organisme, qui diffère des représentations des pays les moins touchés.
                     </div>
                 </div>
                 <div class="row" id="countryData">
@@ -89,7 +88,7 @@
                 <div class="row" id="dataSource">
                     Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/
                     <br>
-                    Souris/Pointer: Tourner et Zoomer
+                    Souris/Pointeur: Tourner et Zoomer
                 </div>
                 <div class="row">
                     <div id="viewport"></div>
@@ -383,8 +382,8 @@ void main() {
 
             if (lang == "french") {
                 subTitle.text("Forme Confinée");
-                descriptionText.text("Cette visualisation abstraite capture des statistiques COVID-19  mises à jour pour les traduire vers une créature agile et dynamique, de forme similaire à celle d’un virus de type spherique, qui se déplace parfois librement, et d'autres fois étouffée et confinée dedans 4 murs. Les pays les plus touchés sont obligés d'imposer des règles de confinement plus strictes, ce qui produit une certaine forme dans l’organisme, qui diffère des représentations des pays les moins touchés.");
-                dataSourceText.html("Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Souris / Pointer: Tourner et Zoomer");
+                descriptionText.text("Cette visualisation abstraite capture des statistiques COVID-19 mises à jour pour les traduire vers une créature agile et dynamique, de forme similaire à celle d’un virus de type spherique, qui se déplace parfois librement, et d'autres fois étouffée et confinée entre 4 murs. Les pays les plus touchés sont obligés d'imposer des règles de confinement plus strictes, ce qui produit une certaine forme dans l’organisme, qui diffère des représentations des pays les moins touchés.");
+                dataSourceText.html("Source: https://opendata.ecdc.europa.eu/covid19/casedistribution/json/<br>Souris / Pointeur: Tourner et Zoomer");
                 document.title = "Forme Confinée";
                 pleekLinkText.html('Realisé par: <a href="http://www.pleek.net" target="_blank">Agustín Ramos Anzorena</a>');
             } else if (lang == "english") {
