@@ -12,3 +12,7 @@ This abstract visualization captures up-to-date COVID-19 statistics to translate
 FRA
 Forme Confinée
 Cette visualisation abstraite capture des statistiques COVID-19  mises à jour pour les traduire vers une créature agile et dynamique, de forme similaire à celle d’un virus de type spherique, qui se déplace parfois librement, et d'autres fois étouffée et confinée dedans 4 murs. Les pays les plus touchés sont obligés d'imposer des règles de confinement plus strictes, ce qui produit une certaine forme dans l’organisme, qui diffère des représentations des pays les moins touchés.
+
+epouse
+conyuant
+ame soue
